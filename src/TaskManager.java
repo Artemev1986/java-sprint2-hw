@@ -8,7 +8,6 @@ public class TaskManager {
     private final HashMap<Integer, Epic> epics;
 
     public TaskManager() {
-        this.id = 0;
         this.tasks = new HashMap<>();
         this.subtasks = new HashMap<>();
         this.epics = new HashMap<>();
@@ -20,7 +19,7 @@ public class TaskManager {
         tasks.put(id,task);
     }
 
-    public Task getTask(int id) {
+    public Task getTaskById(int id) {
         return tasks.get(id);
     }
 
@@ -28,11 +27,12 @@ public class TaskManager {
         tasks.put(task.getId(), task);
     }
 
-    public void removeTask(int id) {
-        if (tasks.containsKey(id))
+    public void removeTaskById(int id) {
+        if (tasks.containsKey(id)) {
             tasks.remove(id);
-        else
+        } else {
             System.out.println("No task with key: " + id);
+        }
     }
 
     public ArrayList<Task> getTasksList() {
@@ -54,29 +54,29 @@ public class TaskManager {
         subtask.setId(id);
         subtask.setEpicId(epicId);
         subtasks.put(id,subtask);
-        updateEpic(epics.get(epicId));
+        updateEpic(epic);
     }
 
-    public Subtask getSubtask(int id) {
+    public Subtask getSubtaskById(int id) {
         return subtasks.get(id);
     }
 
     public void updateSubtask(Subtask subtask) {
         subtasks.put(subtask.getId(), subtask);
         int epicId = subtask.getEpicId();
-        updateEpic(getEpic(epicId));
+        updateEpic(getEpicById(epicId));
     }
 
-    public void removeSubtask(int id) {
+    public void removeSubtaskById(int id) {
         if (subtasks.containsKey(id)) {
-           int epicId = getSubtask(id).getEpicId();
+           int epicId = getSubtaskById(id).getEpicId();
             subtasks.remove(id);
-            Epic epic = getEpic(epicId);
+            Epic epic = getEpicById(epicId);
             epic.getSubtaskIds().remove((Integer) id);
             updateEpic(epic);
-        }
-        else
+        } else {
             System.out.println("No subtask with key: " + id);
+        }
     }
 
     public ArrayList<Subtask> getSubtasksList() {
@@ -101,7 +101,7 @@ public class TaskManager {
         epics.put(id, epic);
     }
 
-    public Epic getEpic(int id) {
+    public Epic getEpicById(int id) {
         return epics.get(id);
     }
 
@@ -128,16 +128,16 @@ public class TaskManager {
         epics.put(epic.getId(), epic);
     }
 
-    public void removeEpic(int id) {
+    public void removeEpicById(int id) {
         if (epics.containsKey(id)) {
-            Epic epic = getEpic(id);
+            Epic epic = getEpicById(id);
             for (int subtaskId: epic.getSubtaskIds()) {
                 subtasks.remove(subtaskId);
             }
             epics.remove(id);
-        }
-        else
+        } else {
             System.out.println("No epic with key: " + id);
+        }
     }
 
     public ArrayList<Epic> getEpicsList() {

@@ -7,14 +7,12 @@ public class Task {
     private String state;
 
     public Task(String title, String description) {
-        this.id = 0;
         this.title = title;
         this.description = description;
         state = "NEW";
     }
 
     public Task(String title) {
-        this.id = 0;
         this.title = title;
         state = "NEW";
     }
@@ -53,8 +51,12 @@ public class Task {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
         Task task = (Task) o;
         return id == task.id &&
                 Objects.equals(title, task.title) &&

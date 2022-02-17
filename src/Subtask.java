@@ -5,12 +5,10 @@ public class Subtask extends Task {
 
     public Subtask(String title, String description) {
         super(title, description);
-        this.epicId = 0;
     }
 
     public Subtask(String title) {
         super(title);
-        this.epicId = 0;
     }
 
     public void setEpicId(int epicId) {
@@ -23,11 +21,15 @@ public class Subtask extends Task {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass())
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
             return false;
-        if (!super.equals(o))
+        }
+        if (!super.equals(o)) {
             return false;
+        }
         Subtask subtask = (Subtask) o;
         return epicId == subtask.epicId;
     }

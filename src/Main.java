@@ -43,8 +43,8 @@ public class Main {
         System.out.println(taskManager.getSubtasksList());
         System.out.println(taskManager.getEpicsList());
 
-        taskManager.removeTask(1);
-        taskManager.removeEpic(3);
+        taskManager.removeTaskById(1);
+        taskManager.removeEpicById(3);
 
         System.out.println();
         System.out.println("Print lists after removing");
