@@ -1,16 +1,19 @@
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 public class InMemoryTaskManager implements TaskManager {
     private int id;
     private final HashMap<Integer, Task> tasks;
     private final HashMap<Integer, Subtask> subtasks;
     private final HashMap<Integer, Epic> epics;
+    private final List<Task> listOfEndTasks;
 
     public InMemoryTaskManager() {
-        this.tasks = new HashMap<>();
-        this.subtasks = new HashMap<>();
-        this.epics = new HashMap<>();
+        tasks = new HashMap<>();
+        subtasks = new HashMap<>();
+        epics = new HashMap<>();
+        listOfEndTasks = new ArrayList<>();
     }
 
     @Override
@@ -22,6 +25,10 @@ public class InMemoryTaskManager implements TaskManager {
 
     @Override
     public Task getTaskById(int id) {
+        if (listOfEndTasks.size() >= 10) {
+            listOfEndTasks.remove(0);
+        }
+        listOfEndTasks.add(tasks.get(id));
         return tasks.get(id);
     }
 
@@ -66,6 +73,10 @@ public class InMemoryTaskManager implements TaskManager {
 
     @Override
     public Subtask getSubtaskById(int id) {
+        if (listOfEndTasks.size() >= 10) {
+            listOfEndTasks.remove(0);
+        }
+        listOfEndTasks.add(subtasks.get(id));
         return subtasks.get(id);
     }
 
@@ -116,6 +127,10 @@ public class InMemoryTaskManager implements TaskManager {
 
     @Override
     public Epic getEpicById(int id) {
+        if (listOfEndTasks.size() >= 10) {
+            listOfEndTasks.remove(0);
+        }
+        listOfEndTasks.add(epics.get(id));
         return epics.get(id);
     }
 
@@ -178,5 +193,9 @@ public class InMemoryTaskManager implements TaskManager {
             list.add(subtasks.get(id));
         }
         return list;
+    }
+
+    public List<Task> history() {
+        return listOfEndTasks;
     }
 }
