@@ -1,19 +1,19 @@
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 
 public class InMemoryTaskManager implements TaskManager {
     private int id;
     private final HashMap<Integer, Task> tasks;
     private final HashMap<Integer, Subtask> subtasks;
     private final HashMap<Integer, Epic> epics;
-    private final List<Task> listOfEndTasks;
+    private final HistoryManager historyManager;
 
-    public InMemoryTaskManager() {
+
+    public InMemoryTaskManager(HistoryManager historyManager) {
+        this.historyManager = historyManager;
         tasks = new HashMap<>();
         subtasks = new HashMap<>();
         epics = new HashMap<>();
-        listOfEndTasks = new ArrayList<>();
     }
 
     @Override
@@ -25,10 +25,7 @@ public class InMemoryTaskManager implements TaskManager {
 
     @Override
     public Task getTaskById(int id) {
-        if (listOfEndTasks.size() >= 10) {
-            listOfEndTasks.remove(0);
-        }
-        listOfEndTasks.add(tasks.get(id));
+        historyManager.add(tasks.get(id));
         return tasks.get(id);
     }
 
@@ -73,10 +70,7 @@ public class InMemoryTaskManager implements TaskManager {
 
     @Override
     public Subtask getSubtaskById(int id) {
-        if (listOfEndTasks.size() >= 10) {
-            listOfEndTasks.remove(0);
-        }
-        listOfEndTasks.add(subtasks.get(id));
+        historyManager.add(subtasks.get(id));
         return subtasks.get(id);
     }
 
@@ -127,10 +121,7 @@ public class InMemoryTaskManager implements TaskManager {
 
     @Override
     public Epic getEpicById(int id) {
-        if (listOfEndTasks.size() >= 10) {
-            listOfEndTasks.remove(0);
-        }
-        listOfEndTasks.add(epics.get(id));
+        historyManager.add(epics.get(id));
         return epics.get(id);
     }
 
@@ -139,14 +130,14 @@ public class InMemoryTaskManager implements TaskManager {
         boolean isEquals = true;
         State state;
         for (int subtaskId: epic.getSubtaskIds()) {
-            isEquals &= subtasks.get(subtaskId).getState().equals(State.NEW);
+            isEquals &= subtasks.get(subtaskId).getState() == State.NEW;
         }
         if (isEquals) {
             state = State.NEW;
         } else {
             isEquals = true;
             for (int subtaskId: epic.getSubtaskIds()) {
-                isEquals &= subtasks.get(subtaskId).getState().equals(State.DONE);
+                isEquals &= subtasks.get(subtaskId).getState() == State.DONE;
             }
             if (isEquals) {
                 state = State.DONE;
@@ -193,9 +184,5 @@ public class InMemoryTaskManager implements TaskManager {
             list.add(subtasks.get(id));
         }
         return list;
-    }
-
-    public List<Task> history() {
-        return listOfEndTasks;
     }
 }
