@@ -114,7 +114,7 @@ public class InMemoryTaskManager implements TaskManager {
         subtasks.clear();
         for (int id: epics.keySet()) {
             epics.get(id).getSubtaskIds().clear();
-            epics.get(id).setState("NEW");
+            epics.get(id).setState(State.NEW);
         }
     }
 
@@ -137,21 +137,21 @@ public class InMemoryTaskManager implements TaskManager {
     @Override
     public void updateEpic(Epic epic) {
         boolean isEquals = true;
-        String state;
+        State state;
         for (int subtaskId: epic.getSubtaskIds()) {
-            isEquals &= subtasks.get(subtaskId).getState().equals("NEW");
+            isEquals &= subtasks.get(subtaskId).getState().equals(State.NEW);
         }
         if (isEquals) {
-            state = "NEW";
+            state = State.NEW;
         } else {
             isEquals = true;
             for (int subtaskId: epic.getSubtaskIds()) {
-                isEquals &= subtasks.get(subtaskId).getState().equals("DONE");
+                isEquals &= subtasks.get(subtaskId).getState().equals(State.DONE);
             }
             if (isEquals) {
-                state = "DONE";
+                state = State.DONE;
             } else {
-                state = "IN_PROGRESS";
+                state = State.IN_PROGRESS;
             }
         }
         epic.setState(state);

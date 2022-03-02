@@ -4,17 +4,17 @@ public class Task {
     private int id;
     private String title;
     private String description;
-    private String state;
+    private State state;
 
     public Task(String title, String description) {
         this.title = title;
         this.description = description;
-        state = "NEW";
+        state = State.NEW;
     }
 
     public Task(String title) {
         this.title = title;
-        state = "NEW";
+        state = State.NEW;
     }
 
     public int getId() {
@@ -29,7 +29,7 @@ public class Task {
         return description;
     }
 
-    public String getState() {
+    public State getState() {
         return state;
     }
 
@@ -45,7 +45,7 @@ public class Task {
         this.description = description;
     }
 
-    public void setState(String state) {
+    public void setState(State state) {
         this.state = state;
     }
 
