@@ -1,3 +1,5 @@
+package practicum.task;
+
 import java.util.Objects;
 
 public class Subtask extends Task {
@@ -41,7 +43,7 @@ public class Subtask extends Task {
 
     @Override
     public String toString() {
-        String result = "Subtask{" +
+        String result = "practicum.task.Subtask{" +
                 "id=" + getId() +
                 ", epicId=" + epicId +
                 ", title='" + getTitle() + '\'';

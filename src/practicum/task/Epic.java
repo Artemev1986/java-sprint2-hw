@@ -1,3 +1,5 @@
+package practicum.task;
+
 import java.util.ArrayList;
 import java.util.Objects;
 
@@ -41,7 +43,7 @@ public class Epic extends Task {
     @Override
     public String toString() {
 
-        String result = "Epic{" + "id=" + getId() + ", title='" + getTitle() + '\'';
+        String result = "practicum.task.Epic{" + "id=" + getId() + ", title='" + getTitle() + '\'';
         if (getDescription() != null) {
             result +=  ", description.length=" + getDescription().length();
         } else  {

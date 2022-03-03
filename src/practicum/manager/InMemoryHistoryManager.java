@@ -1,3 +1,7 @@
+package practicum.manager;
+
+import practicum.task.Task;
+
 import java.util.ArrayList;
 import java.util.List;
 

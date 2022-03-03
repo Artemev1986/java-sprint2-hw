@@ -1,7 +1,7 @@
 # java-sprint2-hw
 Second sprint homework
 
-## This is the repository of the project "Task Tracker"
+## This is the repository of the project "practicum.task.Task Tracker"
 
 This application **can**:
 1. Create simple and complex tasks.

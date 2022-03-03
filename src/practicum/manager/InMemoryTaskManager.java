@@ -1,5 +1,13 @@
+package practicum.manager;
+
+import practicum.task.Epic;
+import practicum.task.State;
+import practicum.task.Subtask;
+import practicum.task.Task;
+
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 public class InMemoryTaskManager implements TaskManager {
     private int id;
@@ -184,5 +192,10 @@ public class InMemoryTaskManager implements TaskManager {
             list.add(subtasks.get(id));
         }
         return list;
+    }
+
+    @Override
+    public List<Task> history() {
+        return historyManager.getHistory();
     }
 }

@@ -1,4 +1,11 @@
+package practicum.manager;
+
+import practicum.task.Epic;
+import practicum.task.Subtask;
+import practicum.task.Task;
+
 import java.util.ArrayList;
+import java.util.List;
 
 public interface TaskManager {
     void createTask(Task task);
@@ -38,4 +45,6 @@ public interface TaskManager {
     void removeAllEpics();
 
     ArrayList<Subtask> getSubtasksOfEpicList(Epic epic);
+
+    List<Task> history();
 }

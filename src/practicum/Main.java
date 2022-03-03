@@ -1,7 +1,14 @@
+package practicum;
+
+import practicum.manager.TaskManager;
+import practicum.task.Epic;
+import practicum.task.Subtask;
+import practicum.task.Task;
+import practicum.manager.util.Managers;
+
 public class Main {
     public static void main(String[] args) {
         TaskManager taskManager = Managers.getDefault();
-        HistoryManager historyManager = Managers.getDefaultHistory();
 
         Task task1 = new Task("Task1", "Simple task");
         Task task2 = new Task("Task2");
@@ -12,16 +19,16 @@ public class Main {
         Task task7 = new Task("Task7", "Simple task");
         Task task8 = new Task("Task8");
 
-        Epic epic1 = new Epic("Epic1", "Epic task");
+        Epic epic1 = new Epic("Epic1", "practicum.task.Epic task");
         Subtask subtask1 = new Subtask("Subtask1");
-        Subtask subtask2 = new Subtask("Subtask2", "Subtask of epic1");
+        Subtask subtask2 = new Subtask("Subtask2", "practicum.task.Subtask of epic1");
         Epic epic2 = new Epic("Epic2");
-        Subtask subtask3 = new Subtask("Subtask1", "Subtask of epic2");
-        Epic epic3 = new Epic("Epic3", "Epic task");
+        Subtask subtask3 = new Subtask("Subtask1", "practicum.task.Subtask of epic2");
+        Epic epic3 = new Epic("Epic3", "practicum.task.Epic task");
         Subtask subtask4 = new Subtask("Subtask4");
-        Subtask subtask5 = new Subtask("Subtask5", "Subtask of epic3");
+        Subtask subtask5 = new Subtask("Subtask5", "practicum.task.Subtask of epic3");
         Epic epic4 = new Epic("Epic4");
-        Subtask subtask6 = new Subtask("Subtask6", "Subtask of epic4");
+        Subtask subtask6 = new Subtask("Subtask6", "practicum.task.Subtask of epic4");
 
         taskManager.createTask(task1);
         taskManager.createTask(task2);
@@ -47,33 +54,33 @@ public class Main {
         taskManager.createSubtask(subtask6, epic4);
 
         taskManager.getTaskById(1);
-        System.out.println(historyManager.getHistory());
+        System.out.println(taskManager.history());
         taskManager.getTaskById(2);
-        System.out.println(historyManager.getHistory());
+        System.out.println(taskManager.history());
         taskManager.getTaskById(3);
-        System.out.println(historyManager.getHistory());
+        System.out.println(taskManager.history());
         taskManager.getTaskById(4);
-        System.out.println(historyManager.getHistory());
+        System.out.println(taskManager.history());
         taskManager.getTaskById(5);
-        System.out.println(historyManager.getHistory());
+        System.out.println(taskManager.history());
         taskManager.getEpicById(9);
-        System.out.println(historyManager.getHistory());
+        System.out.println(taskManager.history());
         taskManager.getSubtaskById(15);
-        System.out.println(historyManager.getHistory());
+        System.out.println(taskManager.history());
         taskManager.getSubtaskById(11);
-        System.out.println(historyManager.getHistory());
+        System.out.println(taskManager.history());
         taskManager.getTaskById(3);
-        System.out.println(historyManager.getHistory());
+        System.out.println(taskManager.history());
         taskManager.getTaskById(4);
-        System.out.println(historyManager.getHistory());
+        System.out.println(taskManager.history());
         taskManager.getTaskById(5);
-        System.out.println(historyManager.getHistory());
+        System.out.println(taskManager.history());
         taskManager.getTaskById(4);
-        System.out.println(historyManager.getHistory());
+        System.out.println(taskManager.history());
         taskManager.getTaskById(5);
-        System.out.println(historyManager.getHistory());
+        System.out.println(taskManager.history());
         taskManager.getTaskById(4);
-        System.out.println(historyManager.getHistory());
+        System.out.println(taskManager.history());
         taskManager.getTaskById(5);
     }
 }

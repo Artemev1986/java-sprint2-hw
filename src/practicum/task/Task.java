@@ -1,3 +1,5 @@
+package practicum.task;
+
 import java.util.Objects;
 
 public class Task {
@@ -71,7 +73,7 @@ public class Task {
 
     @Override
     public String toString() {
-        String result = "Task{" +
+        String result = "practicum.task.Task{" +
                 "id=" + id +
                 ", title='" + title + '\'';
         if (description != null) {
