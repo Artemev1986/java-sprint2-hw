@@ -2,26 +2,74 @@ package practicum.manager;
 
 import practicum.task.Task;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 public class InMemoryHistoryManager implements HistoryManager{
-    private final List<Task> listOfEndTasks;
+    private Node head;
+    private Node tail;
+    private final Map<Integer, Node> mapOfEndTasks;
 
     public InMemoryHistoryManager() {
-        listOfEndTasks = new ArrayList<>();
+        mapOfEndTasks = new HashMap<>();
+    }
+
+    public void linkLast(Task task) {
+        final Node oldTail = tail;
+        final Node newNode = new Node(oldTail, task, null);
+        tail = newNode;
+        if (oldTail == null) {
+            head = newNode;
+        } else {
+            oldTail.setNext(newNode);
+        }
+        mapOfEndTasks.put(task.getId(), newNode);
+    }
+
+    public List<Task> getTasks() {
+        List<Task> list = new ArrayList<>();
+        Node node = head;
+        while (node != null) {
+            list.add(node.getData());
+            node = node.getNext();
+        }
+        return list;
+    }
+
+    public void removeNode(Node node) {
+        final Node next = node.getNext();
+        final Node prev = node.getPrev();
+
+        if (prev == null) {
+            head = next;
+        } else {
+            prev.setNext(next);
+            node.setPrev(null);
+        }
+        if (next == null) {
+            tail = prev;
+        } else {
+            next.setPrev(prev);
+            node.setNext(null);
+        }
+        node.setData(null);
     }
 
     @Override
     public void add(Task task) {
-        if (listOfEndTasks.size() >= 10) {
-            listOfEndTasks.remove(0);
+        if (mapOfEndTasks.containsKey(task.getId())) {
+            remove(task.getId());
         }
-        listOfEndTasks.add(task);
+        linkLast(task);
+    }
+
+    @Override
+    public void remove(int id) {
+        removeNode(mapOfEndTasks.get(id));
+        mapOfEndTasks.remove(id);
     }
 
     @Override
     public List<Task> getHistory() {
-        return listOfEndTasks;
+        return getTasks();
     }
 }

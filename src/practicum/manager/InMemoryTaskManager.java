@@ -46,6 +46,7 @@ public class InMemoryTaskManager implements TaskManager {
     public void removeTaskById(int id) {
         if (tasks.containsKey(id)) {
             tasks.remove(id);
+            historyManager.remove(id);
         } else {
             System.out.println("No task with key: " + id);
         }
@@ -62,6 +63,9 @@ public class InMemoryTaskManager implements TaskManager {
 
     @Override
     public void removeAllTasks() {
+        for (Integer id:tasks.keySet()) {
+            historyManager.remove(id);
+        }
         tasks.clear();
     }
 
@@ -97,6 +101,7 @@ public class InMemoryTaskManager implements TaskManager {
             Epic epic = getEpicById(epicId);
             epic.getSubtaskIds().remove((Integer) id);
             updateEpic(epic);
+            historyManager.remove(id);
         } else {
             System.out.println("No subtask with key: " + id);
         }
@@ -113,8 +118,11 @@ public class InMemoryTaskManager implements TaskManager {
 
     @Override
     public void removeAllSubtasks() {
+        for (Integer id: subtasks.keySet()) {
+            historyManager.remove(id);
+        }
         subtasks.clear();
-        for (int id: epics.keySet()) {
+        for (Integer id: epics.keySet()) {
             epics.get(id).getSubtaskIds().clear();
             epics.get(id).setState(State.NEW);
         }
@@ -163,8 +171,10 @@ public class InMemoryTaskManager implements TaskManager {
             Epic epic = getEpicById(id);
             for (int subtaskId: epic.getSubtaskIds()) {
                 subtasks.remove(subtaskId);
+                historyManager.remove(subtaskId);
             }
             epics.remove(id);
+            historyManager.remove(id);
         } else {
             System.out.println("No epic with key: " + id);
         }
@@ -181,7 +191,13 @@ public class InMemoryTaskManager implements TaskManager {
 
     @Override
     public void removeAllEpics() {
+        for (Integer id: epics.keySet()) {
+            historyManager.remove(id);
+        }
         epics.clear();
+        for (Integer id: subtasks.keySet()) {
+            historyManager.remove(id);
+        }
         subtasks.clear();
     }
 
