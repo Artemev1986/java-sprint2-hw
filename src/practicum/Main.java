@@ -74,7 +74,7 @@ public class Main {
         System.out.println(taskManager.history());
 
         System.out.println("remove epic1");
-        
+
         taskManager.removeEpicById(3);
         System.out.println(taskManager.history());
     }
