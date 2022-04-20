@@ -73,7 +73,7 @@ public class Task {
 
     @Override
     public String toString() {
-        String result = "practicum.task.Task{" +
+        String result = "Task{" +
                 "id=" + id +
                 ", title='" + title + '\'';
         if (description != null) {

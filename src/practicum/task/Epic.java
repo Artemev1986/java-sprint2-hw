@@ -43,7 +43,7 @@ public class Epic extends Task {
     @Override
     public String toString() {
 
-        String result = "practicum.task.Epic{" + "id=" + getId() + ", title='" + getTitle() + '\'';
+        String result = "Epic{" + "id=" + getId() + ", title='" + getTitle() + '\'';
         if (getDescription() != null) {
             result +=  ", description.length=" + getDescription().length();
         } else  {

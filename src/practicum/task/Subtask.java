@@ -43,7 +43,7 @@ public class Subtask extends Task {
 
     @Override
     public String toString() {
-        String result = "practicum.task.Subtask{" +
+        String result = "Subtask{" +
                 "id=" + getId() +
                 ", epicId=" + epicId +
                 ", title='" + getTitle() + '\'';
