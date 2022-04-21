@@ -1,6 +1,5 @@
 package practicum;
 
-import practicum.manager.ManagerSaveException;
 import practicum.manager.TaskManager;
 import practicum.task.Epic;
 import practicum.task.Subtask;
@@ -8,9 +7,8 @@ import practicum.task.Task;
 import practicum.manager.util.Managers;
 
 public class Main {
-    public static void main(String[] args) throws ManagerSaveException {
+    public static void main(String[] args) {
         TaskManager taskManager = Managers.getDefault();
-        TaskManager taskManagerFromFile = Managers.loadFromFile("data.csv");
 
         Task task1 = new Task("Task1", "Simple task");
         Task task2 = new Task("Task2");

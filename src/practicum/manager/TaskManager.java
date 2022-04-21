@@ -4,50 +4,48 @@ import practicum.task.Epic;
 import practicum.task.Subtask;
 import practicum.task.Task;
 
-import java.io.IOException;
-import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
 
 public interface TaskManager {
-    void createTask(Task task) throws ManagerSaveException;
+    void createTask(Task task);
 
-    Task getTaskById(int id) throws ManagerSaveException;
+    Task getTaskById(int id);
 
-    void updateTask(Task task) throws ManagerSaveException;
+    void updateTask(Task task);
 
-    void removeTaskById(int id) throws ManagerSaveException;
+    void removeTaskById(int id);
 
     ArrayList<Task> getTasksList();
 
-    void removeAllTasks() throws ManagerSaveException;
+    void removeAllTasks();
 
-    void createSubtask(Subtask subtask, Epic epic) throws ManagerSaveException;
+    void createSubtask(Subtask subtask, Epic epic);
 
-    Subtask getSubtaskById(int id) throws ManagerSaveException;
+    Subtask getSubtaskById(int id);
 
-    void updateSubtask(Subtask subtask) throws ManagerSaveException;
+    void updateSubtask(Subtask subtask);
 
-    void removeSubtaskById(int id) throws ManagerSaveException;
+    void removeSubtaskById(int id);
 
     ArrayList<Subtask> getSubtasksList();
 
-    void removeAllSubtasks() throws ManagerSaveException;
+    void removeAllSubtasks();
 
-    void createEpic(Epic epic) throws ManagerSaveException;
+    void createEpic(Epic epic);
 
-    Epic getEpicById(int id) throws ManagerSaveException;
+    Epic getEpicById(int id);
 
-    void updateEpic(Epic epic) throws ManagerSaveException;
+    void updateEpic(Epic epic);
 
-    void removeEpicById(int id) throws ManagerSaveException;
+    void removeEpicById(int id);
 
     ArrayList<Epic> getEpicsList();
 
-    void removeAllEpics() throws ManagerSaveException;
+    void removeAllEpics();
 
     ArrayList<Subtask> getSubtasksOfEpicList(Epic epic);
 
-    List<Task> history() throws ManagerSaveException;
+    List<Task> history();
 
 }

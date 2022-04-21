@@ -1,6 +1,7 @@
 package practicum.manager;
 
-public class ManagerSaveException extends Exception {
-    public ManagerSaveException() {
+public class ManagerSaveException extends RuntimeException {
+    public ManagerSaveException(final String message) {
+        super(message);
     }
 }
