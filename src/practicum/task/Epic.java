@@ -1,23 +1,41 @@
 package practicum.task;
 
+import java.time.Duration;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Objects;
 
 public class Epic extends Task {
     private final ArrayList<Integer> subtaskIds;
+    private LocalDateTime endTime;
 
     public Epic(String title, String description) {
         super(title, description);
+        this.setStartTime(LocalDateTime.now());
+        this.setDuration(Duration.ZERO);
+        this.setEndTime(LocalDateTime.now());
         subtaskIds = new ArrayList<>();
     }
 
     public Epic(String title) {
         super(title);
+        this.setStartTime(LocalDateTime.now());
+        this.setDuration(Duration.ZERO);
+        this.setEndTime(LocalDateTime.now());
         subtaskIds = new ArrayList<>();
     }
 
     public ArrayList<Integer> getSubtaskIds() {
         return subtaskIds;
+    }
+
+    public void setEndTime(LocalDateTime endTime) {
+        this.endTime = endTime;
+    }
+
+    @Override
+    public LocalDateTime getEndTime() {
+        return endTime;
     }
 
     @Override
@@ -32,12 +50,13 @@ public class Epic extends Task {
             return false;
         }
         Epic epic = (Epic) o;
-        return Objects.equals(subtaskIds, epic.subtaskIds);
+        return Objects.equals(subtaskIds, epic.subtaskIds) &&
+                Objects.equals(endTime, epic.endTime);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(super.hashCode(), subtaskIds);
+        return Objects.hash(super.hashCode(), subtaskIds, endTime);
     }
 
     @Override

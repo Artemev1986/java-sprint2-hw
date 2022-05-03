@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public interface TaskManager {
-    void createTask(Task task);
+    int createTask(Task task);
 
     Task getTaskById(int id);
 
@@ -20,7 +20,7 @@ public interface TaskManager {
 
     void removeAllTasks();
 
-    void createSubtask(Subtask subtask, Epic epic);
+    int createSubtask(Subtask subtask, Epic epic);
 
     Subtask getSubtaskById(int id);
 
@@ -32,7 +32,7 @@ public interface TaskManager {
 
     void removeAllSubtasks();
 
-    void createEpic(Epic epic);
+    int createEpic(Epic epic);
 
     Epic getEpicById(int id);
 

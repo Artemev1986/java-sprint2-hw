@@ -1,12 +1,17 @@
 package practicum.task;
 
+import java.time.Duration;
+import java.time.LocalDateTime;
 import java.util.Objects;
 
 public class Task {
     private int id;
-    private String title;
+    private final String title;
     private String description;
     private State state;
+    private Duration duration;
+    private LocalDateTime startTime;
+
 
     public Task(String title, String description) {
         this.title = title;
@@ -39,16 +44,28 @@ public class Task {
         this.id = id;
     }
 
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
     public void setState(State state) {
         this.state = state;
+    }
+
+    public void setDuration(Duration duration) {
+        this.duration = duration;
+    }
+
+    public void setStartTime(LocalDateTime startTime) {
+        this.startTime = startTime;
+    }
+
+    public Duration getDuration() {
+        return duration;
+    }
+
+    public LocalDateTime getStartTime() {
+        return startTime;
+    }
+
+    public LocalDateTime getEndTime() {
+        return startTime.plus(duration);
     }
 
     @Override
@@ -63,19 +80,23 @@ public class Task {
         return id == task.id &&
                 Objects.equals(title, task.title) &&
                 Objects.equals(description, task.description) &&
-                Objects.equals(state, task.state);
+                Objects.equals(state, task.state) &&
+                Objects.equals(duration, task.duration) &&
+                Objects.equals(startTime, task.startTime);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, title, description, state);
+        return Objects.hash(id, title, description, state, duration, startTime);
     }
 
     @Override
     public String toString() {
         String result = "Task{" +
                 "id=" + id +
-                ", title='" + title + '\'';
+                ", title='" + title +
+                ", duration=" +
+                ", startTime" + startTime + '\'';
         if (description != null) {
             result +=  ", description.length=" + description.length();
         } else  {
