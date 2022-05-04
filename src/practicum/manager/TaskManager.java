@@ -14,7 +14,7 @@ public interface TaskManager {
 
     void updateTask(Task task);
 
-    void removeTaskById(int id);
+    boolean removeTaskById(int id);
 
     ArrayList<Task> getTasksList();
 
@@ -26,7 +26,7 @@ public interface TaskManager {
 
     void updateSubtask(Subtask subtask);
 
-    void removeSubtaskById(int id);
+    boolean removeSubtaskById(int id);
 
     ArrayList<Subtask> getSubtasksList();
 
@@ -38,7 +38,7 @@ public interface TaskManager {
 
     void updateEpic(Epic epic);
 
-    void removeEpicById(int id);
+    boolean removeEpicById(int id);
 
     ArrayList<Epic> getEpicsList();
 
@@ -47,5 +47,7 @@ public interface TaskManager {
     ArrayList<Subtask> getSubtasksOfEpicList(Epic epic);
 
     List<Task> history();
+
+    List<Task> getPrioritizedTasks();
 
 }

@@ -21,8 +21,8 @@ class FileBackedTasksManagerTest extends TaskManagerTest<FileBackedTasksManager>
 
     @Test
     void taskListIsEmpty() {
-        getT().removeAllTasks();
-        getT().removeAllEpics();
+        getTaskManager().removeAllTasks();
+        getTaskManager().removeAllEpics();
         TaskManager taskManager =  FileBackedTasksManager.loadFromFile("data.csv");
         assertEquals(true, taskManager.getTasksList().isEmpty(), "Task list isn't empty.");
         assertEquals(true, taskManager.getSubtasksList().isEmpty(), "Task list isn't empty.");
@@ -32,7 +32,7 @@ class FileBackedTasksManagerTest extends TaskManagerTest<FileBackedTasksManager>
     @Test
     void epicWithoutSubtasks() {
         Epic epic = new Epic("Epic", "Epic without task");
-        int epicId = getT().createEpic(epic);
+        int epicId = getTaskManager().createEpic(epic);
         TaskManager taskManager =  FileBackedTasksManager.loadFromFile("data.csv");
         assertEquals(epic, taskManager.getEpicById(epicId), "Epic isn't equals loaded epic.");
         assertEquals(0, taskManager.getSubtasksList().size(), "Subtask list isn't empty.");
@@ -58,12 +58,12 @@ class FileBackedTasksManagerTest extends TaskManagerTest<FileBackedTasksManager>
         subtask3.setStartTime(LocalDateTime.of(2023,5,3,17,12));
         subtask3.setDuration(Duration.ofHours(1));
 
-        getT().createTask(task1);
-        getT().createTask(task2);
-        getT().createEpic(epic1);
-        getT().createSubtask(subtask1, epic1);
-        getT().createSubtask(subtask2, epic1);
-        getT().createSubtask(subtask3, epic1);
+        getTaskManager().createTask(task1);
+        getTaskManager().createTask(task2);
+        getTaskManager().createEpic(epic1);
+        getTaskManager().createSubtask(subtask1, epic1);
+        getTaskManager().createSubtask(subtask2, epic1);
+        getTaskManager().createSubtask(subtask3, epic1);
 
         TaskManager taskManager =  FileBackedTasksManager.loadFromFile("data.csv");
         assertEquals(true, taskManager.history().isEmpty(), "History list isn't empty.");

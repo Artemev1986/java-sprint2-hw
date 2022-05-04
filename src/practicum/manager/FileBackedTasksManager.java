@@ -284,9 +284,10 @@ public class FileBackedTasksManager extends InMemoryTaskManager{
     }
 
     @Override
-    public void removeTaskById(int id) {
-        super.removeTaskById(id);
+    public boolean removeTaskById(int id) {
+        boolean isRemoved = super.removeTaskById(id);
         save();
+        return isRemoved;
     }
 
     @Override
@@ -316,9 +317,10 @@ public class FileBackedTasksManager extends InMemoryTaskManager{
     }
 
     @Override
-    public void removeSubtaskById(int id) {
-        super.removeSubtaskById(id);
+    public boolean removeSubtaskById(int id) {
+        boolean isRemoved = super.removeSubtaskById(id);
         save();
+        return isRemoved;
     }
 
     @Override
@@ -348,9 +350,10 @@ public class FileBackedTasksManager extends InMemoryTaskManager{
     }
 
     @Override
-    public void removeEpicById(int id) {
-        super.removeEpicById(id);
+    public boolean removeEpicById(int id) {
+        boolean isRemoved = super.removeEpicById(id);
         save();
+        return isRemoved;
     }
 
     @Override
@@ -365,6 +368,4 @@ public class FileBackedTasksManager extends InMemoryTaskManager{
         save();
         return hist;
     }
-
-
 }

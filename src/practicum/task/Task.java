@@ -70,24 +70,28 @@ public class Task {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) {
-            return true;
-        }
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
+        if (this == o) return true;
+        if (!(o instanceof Task)) return false;
+
         Task task = (Task) o;
-        return id == task.id &&
-                Objects.equals(title, task.title) &&
-                Objects.equals(description, task.description) &&
-                Objects.equals(state, task.state) &&
-                Objects.equals(duration, task.duration) &&
-                Objects.equals(startTime, task.startTime);
+
+        if (getId() != task.getId()) return false;
+        if (!getTitle().equals(task.getTitle())) return false;
+        if (!getDescription().equals(task.getDescription())) return false;
+        if (getState() != task.getState()) return false;
+        if (!getDuration().equals(task.getDuration())) return false;
+        return getStartTime().equals(task.getStartTime());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, title, description, state, duration, startTime);
+        int result = getId();
+        result = 31 * result + getTitle().hashCode();
+        result = 31 * result + getDescription().hashCode();
+        result = 31 * result + getState().hashCode();
+        result = 31 * result + getDuration().hashCode();
+        result = 31 * result + getStartTime().hashCode();
+        return result;
     }
 
     @Override
