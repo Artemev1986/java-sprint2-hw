@@ -52,6 +52,8 @@ public class InMemoryTaskManager implements TaskManager {
         return epics;
     }
 
+
+
     private boolean isReserved(Task task, Set<Task> sortedTasks) {
         LocalDateTime startTimeOfNewTask = task.getStartTime();
         LocalDateTime endTimeOfNewTask = task.getEndTime();
@@ -92,21 +94,17 @@ public class InMemoryTaskManager implements TaskManager {
 
     @Override
     public void updateTask(Task task) {
-        Task tempTask = getTaskById(task.getId());
-        sortedTaskList.remove(tempTask);
+        Task tempSubtask = getSubtaskById(task.getId());
+        tasks.remove(task.getId());
+        sortedTaskList.clear();
+        sortedTaskList.addAll(tasks.values());
+        sortedTaskList.addAll(subtasks.values());
         if (isReserved(task, sortedTaskList)) {
-            sortedTaskList.add(tempTask);
+            sortedTaskList.add(tempSubtask);
             return;
         }
         tasks.put(task.getId(), task);
-
-        if (sortedTaskList.contains(tempTask)) {
-            sortedTaskList.remove(tempTask);
-
-            sortedTaskList.add(task);
-        } else {
-            sortedTaskList.add(task);
-        }
+        sortedTaskList.add(task);
     }
 
     @Override
@@ -168,18 +166,16 @@ public class InMemoryTaskManager implements TaskManager {
     @Override
     public void updateSubtask(Subtask subtask) {
         Task tempSubtask = getSubtaskById(subtask.getId());
-        sortedTaskList.remove(tempSubtask);
+        subtasks.remove(subtask.getId());
+        sortedTaskList.clear();
+        sortedTaskList.addAll(tasks.values());
+        sortedTaskList.addAll(subtasks.values());
         if (isReserved(subtask, sortedTaskList)) {
             sortedTaskList.add(tempSubtask);
             return;
         }
         subtasks.put(subtask.getId(), subtask);
-        if (sortedTaskList.contains(tempSubtask)) {
-            sortedTaskList.remove(tempSubtask);
-            sortedTaskList.add(subtask);
-        } else {
-            sortedTaskList.add(subtask);
-        }
+        sortedTaskList.add(subtask);
         int epicId = subtask.getEpicId();
         updateEpic(getEpicById(epicId));
     }
@@ -258,7 +254,6 @@ public class InMemoryTaskManager implements TaskManager {
                 }
                 isEquals &= subtasks.get(subtaskId).getState() == State.NEW;
             }
-
             epic.setStartTime(minStartTime);
             epic.setDuration(Duration.between(minStartTime, maxEndTime));
             epic.setEndTime(maxEndTime);

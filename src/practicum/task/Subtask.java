@@ -1,7 +1,5 @@
 package practicum.task;
 
-import java.util.Objects;
-
 public class Subtask extends Task {
     private int epicId;
 
@@ -24,18 +22,18 @@ public class Subtask extends Task {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof Subtask)) return false;
+        if (o == null || getClass() != o.getClass()) return false;
         if (!super.equals(o)) return false;
 
         Subtask subtask = (Subtask) o;
 
-        return getEpicId() == subtask.getEpicId();
+        return epicId == subtask.epicId;
     }
 
     @Override
     public int hashCode() {
         int result = super.hashCode();
-        result = 31 * result + getEpicId();
+        result = 31 * result + epicId;
         return result;
     }
 
@@ -44,7 +42,9 @@ public class Subtask extends Task {
         String result = "Subtask{" +
                 "id=" + getId() +
                 ", epicId=" + epicId +
-                ", title='" + getTitle() + '\'';
+                ", title='" + getTitle() +
+                ", duration=" + getDuration() +
+                ", startTime" + getStartTime() + '\'';
         if (getDescription() != null) {
             result +=  ", description.length=" + getDescription().length();
         } else  {

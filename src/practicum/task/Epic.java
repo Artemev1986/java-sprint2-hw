@@ -3,7 +3,6 @@ package practicum.task;
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Objects;
 
 public class Epic extends Task {
     private final ArrayList<Integer> subtaskIds;
@@ -15,6 +14,26 @@ public class Epic extends Task {
         this.setDuration(Duration.ZERO);
         this.setEndTime(LocalDateTime.now());
         subtaskIds = new ArrayList<>();
+    }
+
+    public Epic(String title) {
+        super(title);
+        this.setStartTime(LocalDateTime.now());
+        this.setDuration(Duration.ZERO);
+        this.setEndTime(LocalDateTime.now());
+        subtaskIds = new ArrayList<>();
+    }
+
+    public ArrayList<Integer> getSubtaskIds() {
+        return subtaskIds;
+    }
+
+    public void setEndTime(LocalDateTime endTime) {
+        this.endTime = endTime;
+    }
+
+    public LocalDateTime getEndTime() {
+        return endTime;
     }
 
     @Override
@@ -37,31 +56,15 @@ public class Epic extends Task {
         return result;
     }
 
-    public Epic(String title) {
-        super(title);
-        this.setStartTime(LocalDateTime.now());
-        this.setDuration(Duration.ZERO);
-        this.setEndTime(LocalDateTime.now());
-        subtaskIds = new ArrayList<>();
-    }
-
-    public ArrayList<Integer> getSubtaskIds() {
-        return subtaskIds;
-    }
-
-    public void setEndTime(LocalDateTime endTime) {
-        this.endTime = endTime;
-    }
-
-    @Override
-    public LocalDateTime getEndTime() {
-        return endTime;
-    }
-
     @Override
     public String toString() {
 
-        String result = "Epic{" + "id=" + getId() + ", title='" + getTitle() + '\'';
+        String result = "Epic{" +
+                "id=" + getId() +
+                ", title='" + getTitle() +
+                ", duration=" + getDuration() +
+                ", startTime" + getStartTime() +
+                ", endTime" + getEndTime() +'\'';
         if (getDescription() != null) {
             result +=  ", description.length=" + getDescription().length();
         } else  {

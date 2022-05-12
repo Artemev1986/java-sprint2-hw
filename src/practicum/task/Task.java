@@ -71,26 +71,26 @@ public class Task {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof Task)) return false;
+        if (o == null || getClass() != o.getClass()) return false;
 
         Task task = (Task) o;
 
-        if (getId() != task.getId()) return false;
-        if (!getTitle().equals(task.getTitle())) return false;
-        if (!getDescription().equals(task.getDescription())) return false;
-        if (getState() != task.getState()) return false;
-        if (!getDuration().equals(task.getDuration())) return false;
-        return getStartTime().equals(task.getStartTime());
+        if (id != task.id) return false;
+        if (!title.equals(task.title)) return false;
+        if (!Objects.equals(description, task.description)) return false;
+        if (state != task.state) return false;
+        if (!duration.equals(task.duration)) return false;
+        return startTime.equals(task.startTime);
     }
 
     @Override
     public int hashCode() {
-        int result = getId();
-        result = 31 * result + getTitle().hashCode();
-        result = 31 * result + getDescription().hashCode();
-        result = 31 * result + getState().hashCode();
-        result = 31 * result + getDuration().hashCode();
-        result = 31 * result + getStartTime().hashCode();
+        int result = id;
+        result = 31 * result + title.hashCode();
+        result = 31 * result + (description != null ? description.hashCode() : 0);
+        result = 31 * result + state.hashCode();
+        result = 31 * result + duration.hashCode();
+        result = 31 * result + startTime.hashCode();
         return result;
     }
 
@@ -99,7 +99,7 @@ public class Task {
         String result = "Task{" +
                 "id=" + id +
                 ", title='" + title +
-                ", duration=" +
+                ", duration=" + duration +
                 ", startTime" + startTime + '\'';
         if (description != null) {
             result +=  ", description.length=" + description.length();

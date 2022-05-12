@@ -453,12 +453,14 @@ public abstract class TaskManagerTest<T extends TaskManager> {
         assertEquals(expectedTaskList, taskManager.getPrioritizedTasks(), "Task list isn't actual.");
 
         subtask2.setStartTime(LocalDateTime.of(2022,5,1,13,12));
+        taskManager.updateSubtask(subtask2);
         subtask1.setStartTime(LocalDateTime.of(2022,5,3,13,12));
+        taskManager.updateSubtask(subtask1);
         task.setStartTime(LocalDateTime.of(2022,5,6,10,12));
 
         taskManager.updateTask(task);
-        taskManager.updateSubtask(subtask2);
-        taskManager.updateSubtask(subtask1);
+
+
 
         expectedTaskList.clear();
         expectedTaskList.add(subtask2);
