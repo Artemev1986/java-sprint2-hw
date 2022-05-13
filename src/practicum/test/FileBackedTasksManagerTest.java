@@ -1,7 +1,9 @@
 package practicum.test;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import practicum.manager.FileBackedTasksManager;
+import practicum.manager.InMemoryTaskManager;
 import practicum.manager.TaskManager;
 import practicum.manager.util.Managers;
 import practicum.task.Epic;
@@ -12,11 +14,13 @@ import java.time.Duration;
 import java.time.LocalDateTime;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class FileBackedTasksManagerTest extends TaskManagerTest<FileBackedTasksManager> {
 
-    public FileBackedTasksManagerTest() {
-        super(new FileBackedTasksManager(Managers.getDefaultHistory(),"data.csv"));
+    @BeforeEach
+    void createTaskManager() {
+        setTaskManager(new FileBackedTasksManager(Managers.getDefaultHistory(),"data.csv"));
     }
 
     @Test
@@ -24,9 +28,9 @@ class FileBackedTasksManagerTest extends TaskManagerTest<FileBackedTasksManager>
         getTaskManager().removeAllTasks();
         getTaskManager().removeAllEpics();
         TaskManager taskManager =  FileBackedTasksManager.loadFromFile("data.csv");
-        assertEquals(true, taskManager.getTasksList().isEmpty(), "Task list isn't empty.");
-        assertEquals(true, taskManager.getSubtasksList().isEmpty(), "Task list isn't empty.");
-        assertEquals(true, taskManager.getEpicsList().isEmpty(), "Task list isn't empty.");
+        assertTrue(taskManager.getTasksList().isEmpty(), "Task list isn't empty.");
+        assertTrue(taskManager.getSubtasksList().isEmpty(), "Task list isn't empty.");
+        assertTrue(taskManager.getEpicsList().isEmpty(), "Task list isn't empty.");
     }
 
     @Test
@@ -66,6 +70,6 @@ class FileBackedTasksManagerTest extends TaskManagerTest<FileBackedTasksManager>
         getTaskManager().createSubtask(subtask3, epic1);
 
         TaskManager taskManager =  FileBackedTasksManager.loadFromFile("data.csv");
-        assertEquals(true, taskManager.history().isEmpty(), "History list isn't empty.");
+        assertTrue(taskManager.history().isEmpty(), "History list isn't empty.");
     }
 }

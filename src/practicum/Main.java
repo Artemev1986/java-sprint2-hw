@@ -1,9 +1,9 @@
 package practicum;
 
 import practicum.manager.*;
-import practicum.manager.Network.HTTPTaskManager;
-import practicum.manager.Network.HttpTaskServer;
-import practicum.manager.Network.KVServer;
+import practicum.manager.network.HTTPTaskManager;
+import practicum.manager.network.HttpTaskServer;
+import practicum.manager.network.KVServer;
 import practicum.task.Epic;
 import practicum.task.Subtask;
 import practicum.task.Task;
@@ -56,7 +56,7 @@ public class Main {
         taskManager.getSubtaskById(idSubtask2);
         System.out.println("5" + taskManager.history());
 
-        HTTPTaskManager taskManagerLoad = HTTPTaskManager.loadFromKVServer("http://localhost:8078");
+        HTTPTaskManager taskManagerLoad = new HTTPTaskManager(Managers.getDefaultHistory(), "http://localhost:8078");
 
         System.out.println(taskManagerLoad.history());
     }

@@ -1,4 +1,4 @@
-package practicum.manager.Network;
+package practicum.manager.network;
 
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpServer;

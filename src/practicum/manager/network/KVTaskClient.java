@@ -1,4 +1,4 @@
-package practicum.manager.Network;
+package practicum.manager.network;
 
 import java.io.IOException;
 import java.net.URI;

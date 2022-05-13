@@ -94,13 +94,16 @@ public class InMemoryTaskManager implements TaskManager {
 
     @Override
     public void updateTask(Task task) {
-        Task tempSubtask = getSubtaskById(task.getId());
+        Task tempTask = getSubtaskById(task.getId());
         tasks.remove(task.getId());
         sortedTaskList.clear();
+        if (!tasks.isEmpty())
         sortedTaskList.addAll(tasks.values());
+        if (!subtasks.isEmpty())
         sortedTaskList.addAll(subtasks.values());
         if (isReserved(task, sortedTaskList)) {
-            sortedTaskList.add(tempSubtask);
+            if (tempTask != null)
+            sortedTaskList.add(tempTask);
             return;
         }
         tasks.put(task.getId(), task);
@@ -241,7 +244,7 @@ public class InMemoryTaskManager implements TaskManager {
         boolean isEquals = true;
         State state;
         List<Integer> subtaskIds = epic.getSubtaskIds();
-        if (!subtasks.isEmpty()) {
+        if (!subtaskIds.isEmpty()) {
             LocalDateTime minStartTime = subtasks.get(subtaskIds.get(0)).getStartTime();
             LocalDateTime maxEndTime = subtasks.get(subtaskIds.get(0)).getEndTime();
             for (int subtaskId : subtaskIds) {

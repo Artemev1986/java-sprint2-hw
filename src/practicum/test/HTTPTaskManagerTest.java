@@ -1,11 +1,10 @@
 package practicum.test;
 
-import org.junit.jupiter.api.AfterAll;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 
-import practicum.manager.Network.HTTPTaskManager;
-import practicum.manager.Network.KVServer;
+import practicum.manager.TaskManager;
+import practicum.manager.network.HTTPTaskManager;
+import practicum.manager.network.KVServer;
 import practicum.manager.util.Managers;
 import practicum.task.Epic;
 import practicum.task.Subtask;
@@ -18,23 +17,25 @@ import java.time.LocalDateTime;
 import static org.junit.jupiter.api.Assertions.*;
 
 class HTTPTaskManagerTest extends TaskManagerTest<HTTPTaskManager> {
-    static KVServer kvServer;
+    KVServer kvServer;
 
-    public HTTPTaskManagerTest() {
-        super(new HTTPTaskManager(Managers.getDefaultHistory(),"http://localhost:8078"));
-    }
-
-    @BeforeAll
-    static void startKVServer() throws IOException {
+    @BeforeEach
+    void startKVServer() throws IOException {
         kvServer = new KVServer();
         kvServer.start();
+        setTaskManager(new HTTPTaskManager(Managers.getDefaultHistory(),"http://localhost:8078"));
+    }
+
+    @AfterEach
+    void stopKVServer() {
+        kvServer.stop();
     }
 
     @Test
     void taskListIsEmpty() {
         getTaskManager().removeAllTasks();
         getTaskManager().removeAllEpics();
-        HTTPTaskManager taskManager =  HTTPTaskManager.loadFromKVServer("http://localhost:8078");
+        TaskManager taskManager =  new HTTPTaskManager(Managers.getDefaultHistory(), "http://localhost:8078");
         assertTrue(taskManager.getTasksList().isEmpty(), "Task list isn't empty.");
         assertTrue(taskManager.getSubtasksList().isEmpty(), "Task list isn't empty.");
         assertTrue(taskManager.getEpicsList().isEmpty(), "Task list isn't empty.");
@@ -44,7 +45,7 @@ class HTTPTaskManagerTest extends TaskManagerTest<HTTPTaskManager> {
     void epicWithoutSubtasks() {
         Epic epic = new Epic("Epic", "Epic without task");
         int epicId = getTaskManager().createEpic(epic);
-        HTTPTaskManager taskManager =  HTTPTaskManager.loadFromKVServer("http://localhost:8078");
+        TaskManager taskManager =  new HTTPTaskManager(Managers.getDefaultHistory(), "http://localhost:8078");
         assertEquals(epic, taskManager.getEpicById(epicId), "Epic isn't equals loaded epic.");
         assertEquals(0, taskManager.getSubtasksList().size(), "Subtask list isn't empty.");
     }
@@ -76,12 +77,7 @@ class HTTPTaskManagerTest extends TaskManagerTest<HTTPTaskManager> {
         getTaskManager().createSubtask(subtask2, epic1);
         getTaskManager().createSubtask(subtask3, epic1);
 
-        HTTPTaskManager taskManager =  HTTPTaskManager.loadFromKVServer("http://localhost:8078");
+        TaskManager taskManager =  new HTTPTaskManager(Managers.getDefaultHistory(), "http://localhost:8078");
         assertTrue(taskManager.history().isEmpty(), "History list isn't empty.");
-    }
-
-    @AfterAll
-    static void stopKVServer() {
-        kvServer.stop();
     }
 }

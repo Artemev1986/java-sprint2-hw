@@ -1,10 +1,11 @@
-package practicum.manager.Network;
+package practicum.manager.network;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
 import com.sun.net.httpserver.HttpServer;
+import practicum.manager.TaskManager;
 import practicum.manager.util.Managers;
 import practicum.task.Epic;
 import practicum.task.Subtask;
@@ -22,14 +23,14 @@ import java.util.List;
 
 public class HttpTaskServer {
     private final HttpServer httpServer;
-    private static final int PORT = 8081;
+    private static final int PORT = 8080;
     private static final Charset DEFAULT_CHARSET = StandardCharsets.UTF_8;
     private static final Gson gson = new GsonBuilder()
             .serializeNulls()
             .registerTypeAdapter(Duration.class, new DurationAdapter())
             .registerTypeAdapter(LocalDateTime.class, new LocalDateTimeAdapter())
             .create();
-    private static final HTTPTaskManager taskManager = Managers.getDefault();
+    private static final TaskManager taskManager = Managers.getFileBackedTasksManager();
 
     public HttpTaskServer() throws IOException {
         httpServer = HttpServer.create();
@@ -38,7 +39,12 @@ public class HttpTaskServer {
     }
 
     public void startServer() {
+        System.out.println("Start the server on port " + PORT);
         httpServer.start();
+    }
+    public void stop() {
+        System.out.println("Stop the server on port " + PORT);
+        httpServer.stop(1);
     }
 
     static class TasksHandler implements HttpHandler {
