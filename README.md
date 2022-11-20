@@ -10,5 +10,3 @@ This application **can**:
 4. Get lists of subtasks from complex tasks.
 5. Update tasks.
 6. Delete tasks.
-
-The application is written in Java.
